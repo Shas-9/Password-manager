@@ -28,6 +28,7 @@ def generate_password():
     random.shuffle(password)
     password = "".join(password)
 
+    password_entry.delete(0, END)
     password_entry.insert(0, password)
     pyperclip.copy(password)
 
@@ -54,7 +55,7 @@ def save_pass():
                 with open("data.json", mode="w") as datafile:
                     # Reading old data
                     data = json.load(datafile)
-            except FileNotFoundError:
+            except FileNotFoundError: # Needs to create the json file first time program runs
                 with open("data.json", "w") as datafile:
                     json.dump(new_data, datafile, indent= 4)
             else:
