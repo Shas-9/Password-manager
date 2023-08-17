@@ -54,9 +54,9 @@ def save_pass():
                 with open("data.json", mode="r") as datafile:
                     # Reading old data
                     data = json.load(datafile)
-            except FileNotFoundError:
+            except FileNotFoundError:  # Need to create data.json when run for first time
                 with open("data.json", "w") as datafile:
-                    json.dump(new_data, datafile, indent= 4)
+                    json.dump(new_data, datafile, indent=4)
             else:
                 # updating old data with new data
                 data.update(new_data)
