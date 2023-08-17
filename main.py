@@ -70,11 +70,7 @@ def save_pass():
                 password_entry.delete(0, END)
 
 
-<<<<<<< HEAD
 # Window and Image
-=======
-# Window
->>>>>>> b884c6f7b6147d0482b4a6a5e8559f838798818e
 window = CTk()
 set_appearance_mode("Dark")
 window.geometry("600x500")
