@@ -51,7 +51,7 @@ def save_pass():
                                                               f'save?"')
         if is_ok:
             try:
-                with open("data.json", mode="w") as datafile:
+                with open("data.json", mode="r") as datafile:
                     # Reading old data
                     data = json.load(datafile)
             except FileNotFoundError:
