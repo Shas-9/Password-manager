@@ -70,8 +70,7 @@ def save_pass():
                 password_entry.delete(0, END)
 
 
-# Buttons and stuff
-
+# Window and Image
 window = CTk()
 set_appearance_mode("Dark")
 window.geometry("600x500")
