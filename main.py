@@ -69,6 +69,19 @@ def save_pass():
                 password_entry.delete(0, END)
 
 
+# Search password
+def search():
+    website = website_entry.get()
+    with open("data.json", "r") as datafile:
+        data = json.load(datafile)
+        email = data.get(website).get("email")
+        password = data.get(website).get("password")
+
+    messagebox.showinfo(title="Email and password", message=f"Email: {email}\n"
+                                                            f"Password: {password}")
+    pyperclip.copy(password)
+
+
 # Window and Image
 window = CTk()
 set_appearance_mode("Dark")
@@ -78,7 +91,7 @@ myimage = CTkImage(dark_image=Image.open("logo.png"), size=(270, 280))
 
 # Labels
 image_label = CTkLabel(master=window, image=myimage, text="")
-image_label.grid(row=0, column=1)
+image_label.grid(row=0, column=0, columnspan=3)
 
 website_label = CTkLabel(text="Website:", master=window,
                          width=150, height=40, font=("Roboto", 15))
@@ -93,9 +106,9 @@ password_label = CTkLabel(text="Password:", master=window,
 password_label.grid(row=3, column=0)
 
 # Entries
-website_entry = CTkEntry(width=400, master=window, border_width=2,
+website_entry = CTkEntry(width=255, master=window, border_width=2,
                          height=35)
-website_entry.grid(row=1, column=1, columnspan=2)
+website_entry.grid(row=1, column=1, columnspan=1)
 website_entry.focus()
 
 username_entry = CTkEntry(width=400, master=window, border_width=2,
@@ -117,5 +130,8 @@ generate_password_button.grid(row=3, column=2)
 add_button = CTkButton(master=window, text="Add", width=255,
                        font=("Roboto", 15), command=save_pass)
 add_button.grid(row=4, column=1)
+
+search_password_button = CTkButton(text="Search", master=window, font=("Roboto", 15), command=search)
+search_password_button.grid(row=1, column=2)
 
 window.mainloop()
