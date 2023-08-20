@@ -34,11 +34,13 @@ def generate_password():
 
 # save password
 def save_pass():
+    website_key = website_entry.get().lower()
     website = website_entry.get()
     password = password_entry.get()
     email = username_entry.get()
     new_data = {
-        website: {
+        website_key: {
+            "website": website,
             "email": email,
             "password": password,
         }
@@ -47,7 +49,7 @@ def save_pass():
         messagebox.showinfo(title="Oops!", message="Please don't leave any fields empty")
     else:
         is_ok = messagebox.askokcancel(title=website, message=f'"These are the details you entered:'
-                                                              f' \nEmail: {email}\nPassword:{password}\nIs it ok to '
+                                                              f' \nEmail: {email}\nPassword: {password}\nIs it ok to '
                                                               f'save?"')
         if is_ok:
             try:
@@ -71,15 +73,23 @@ def save_pass():
 
 # Search password
 def search():
-    website = website_entry.get()
-    with open("data.json", "r") as datafile:
-        data = json.load(datafile)
-        email = data.get(website).get("email")
-        password = data.get(website).get("password")
-
-    messagebox.showinfo(title="Email and password", message=f"Email: {email}\n"
-                                                            f"Password: {password}")
-    pyperclip.copy(password)
+    website_key = website_entry.get().lower()
+    try:
+        with open("data.json", "r") as datafile:
+            data = json.load(datafile)
+            if website_key in data:
+                website = data.get(website_key).get("website")
+                email = data.get(website_key).get("email")
+                password = data.get(website_key).get("password")
+                messagebox.showinfo(title="Information", message=f"Website: {website}\n"
+                                                                 f"Email: {email}\n"
+                                                                 f"Password: {password}")
+                pyperclip.copy(password)
+            else:
+                messagebox.showinfo(title="Oops!", message="No details for the website exists")
+    except FileNotFoundError:  # When using the program for the first time
+        messagebox.showinfo(title="Oops!", message=f"No datafile found\n"
+                                                   f"Enter some data first")
 
 
 # Window and Image
